@@ -23,6 +23,8 @@ namespace Runner
 
         SpriteFont font;
 
+        private int grass_draw_range;
+
         public static List<Obstacle> obstacles;
 
         public RunnerGame()
@@ -39,6 +41,8 @@ namespace Runner
             obstacles = new List<Obstacle>();
 
             obstacles.Add(new Obstacle(new Vector2(7 * 8, 0)));
+
+            grass_draw_range = 2; // the x coordinate which the grass tiles should be centered around (keeps memory free)
 
         }
 
@@ -117,6 +121,8 @@ namespace Runner
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            int tiles_to_draw = 45;
+            
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, null, null, null, character.camera.TransformMatrix);
@@ -124,7 +130,11 @@ namespace Runner
             // draw
 
             // ground
-            for (int i = 0; i < 10; i++)
+            if (character.pos.X > grass_draw_range)
+            {
+                grass_draw_range += 23;
+            }
+            for (int i = -(grass_draw_range + (tiles_to_draw / 2)); i < grass_draw_range + tiles_to_draw / 2; i++)
             {
                 spriteBatch.Draw(grass_texture, new Vector2(i * 8, 8), Color.White);
             }
@@ -142,7 +152,7 @@ namespace Runner
 
             // seperate spritebatch calls to draw the text independent of the camera
             spriteBatch.Begin(SpriteSortMode.BackToFront);
-            spriteBatch.DrawString(font, "Hello, this is a test string!", new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(font, "Score: " + character.score, new Vector2(10, 10), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

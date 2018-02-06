@@ -19,6 +19,7 @@ namespace Runner
         public bool jumping { get; set; }
         public RectangleFloat rect { get; set; } // rect for boundaries of the charcter texture
         public Camera camera { get; set; }
+        public int score { get; set; }
 
         // private
 
@@ -27,6 +28,7 @@ namespace Runner
         // Constructor
         public Character()
         {
+            score = 0;
             pos = new Vector2(0, 0);
             velocityX = 1;
             velocityY = 0;
