@@ -9,12 +9,15 @@ namespace Runner
         public Vector2 pos { get; set; }
         public Texture2D texture { get; set; }
         public RectangleFloat rect { get; set; } // rect for boundaries of the charcter texture
+        public bool scored { get; set; }
 
         public Obstacle(Vector2 pos)
         {
             this.pos = pos;
 
             rect = new RectangleFloat(pos, 8, 8);
+
+            scored = false;
 
             //rect = new Rectangle()
             //{

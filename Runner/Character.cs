@@ -88,7 +88,15 @@ namespace Runner
                     pos = new Vector2(0, 0);
                     Console.WriteLine("HIT!");
                 }
+
+                // if we made it past an obstacle somehow, update the score
+                if(pos.X > obs.pos.X + 8 && !obs.scored)
+                {
+                    obs.scored = true;
+                    score++;
+                }
             }
+
 
             // sync the camera to the players position
             camera.Location = new Vector2(pos.X, camera.Location.Y);
